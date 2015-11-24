@@ -203,6 +203,13 @@ add_task_item = function(event, context, user_id, db_item) {
         db_item = validate_number("Priority", body.priority, db_item);
         db_item = validate_number("Estimate", body.estimate, db_item);
         db_item = validate_string("Description", body.description, db_item);
+        if (body.tags != undefined && Array.isArray(body.tags)) {
+            if (body.tags.length > 0) {
+                db_item["Tags"] = {
+                    SS: body.tags
+                };
+            }
+        }
 
         save_item = function(user_id, event, context, db_item) {
             var body = event.body;
@@ -1464,6 +1471,11 @@ list = function(event, context) {
         attribute_names["#owner"] = "Owner";
         attribute_values[":owner"] = {S: event.owner};
         filter_expression.push("#owner = :owner");
+    }
+    if (event.tag != undefined && event.tag != "") {
+        attribute_names["#tag"] = "Tag";
+        attribute_values[":tag"] = {S: event.tag};
+        filter_expression.push("contains(#tag, :tag)");
     }
     dynamodb.scan({
         TableName: "TaskManager_Tasks",
