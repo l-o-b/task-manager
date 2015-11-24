@@ -152,6 +152,10 @@ output_task_item = function(event, context, task) {
         }
     }
 
+    if (task.Tags != undefined && task.Tags.SS.length > 0) {
+        result._tags = task.Tags.SS.join(" ");
+    }
+
     if (event.is_slack) {
         context.succeed({text: "Task ID: " + result._id + "\n" +
             "Task Title: " + result.title});
