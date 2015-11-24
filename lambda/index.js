@@ -434,12 +434,83 @@ history = function(event, context, user_id) {
     }
 }
 
-events = function(event, context, user_id) {
-    print_events = function(event, context, data) {
+events = function(event, context) {
+    print_events = function(event, context, data, limit) {
+        var result = [];
+
+        if (data.Items.length > 0) {
+            var maximum = data.Items.length;
+            if (limit > 0) {
+                if (limit < maximum) {
+                    maximum = limit;
+                }
+            }
+            for (var item_index = 0; item_index < maximum; item_index++) {
+                var item = data.Items[item_index];
+                var log_event = {
+                    user: item.User.S,
+                    date: format_date(parseInt(item["Date"].N)),
+                    action: item.Action.S
+                };
+                if (item.TaskId && item.TaskId.N != "") {
+                    var task_id = parseInt(item.TaskId.N);
+                    if (!isNaN(task_id)) {
+                        log_event.task_id = task_id;
+                    }
+                }
+                result.push(log_event);
+            }
+        }
+
+        context.succeed(result);
+    }
+
+    parse_params = function(event, context, params) {
+        var hasErrors = false;
+        if (event.type != "") {
+            if (event.type == "loginout") {
+                params.ExpressionAttributeNames["#action"] = "Action";
+                params.ExpressionAttributeValues[":login"] = {S: "login"};
+                params.ExpressionAttributeValues[":logout"] = {S: "logout"};
+                params.KeyConditionExpression += " and #action IN (:login, :logout)";
+            } else {
+                switch (event.type) {
+                    case "add":
+                    case "update":
+                    case "peek":
+                    case "suspend":
+                    case "activate":
+                    case "release":
+                    case "complete-success":
+                    case "complete-failure":
+                    case "grab":
+                    case "delete":
+                    case "login":
+                    case "logout":
+                        params.ExpressionAttributeNames["#action"] = "Action";
+                        params.ExpressionAttributeValues[":add"] = {S: event.type};
+                        params.KeyConditionExpression += " and #action = :add";
+                        break;
+                    default:
+                        hasErrors = true;
+                        fail_message(event, context, "Event type not recognized!");
+                        break;
+                }
+            }
+        }
+        var limit = -1;
+        if (event.n != "") {
+            limit = parseInt(event.n);
+            if (!isNaN(limit)) {
+                params.Limit = limit*5;
+            }
+        }
+
+        return {params: params, hasError: hasErrors};
     }
 
     if (event.user != "") {
-        dynamodb.query({
+        var parse_result = parse_params(event, context, {
             TableName: "TaskManager_Events",
             ExpressionAttributeNames: {
                 "#user": "User"
@@ -449,17 +520,44 @@ events = function(event, context, user_id) {
             },
             KeyConditionExpression: "#user = :user",
             ScanIndexForward: true
-        }, function(err, data) {
-            if (err) {
-                console.log(err);
-                fail_message(event, context, "Oops... something went wrong");
-            } else {
-                print_events(event, context, data);
-            }
         });
+
+        if (!parse_result.hasErrors) {
+            dynamodb.query(parse_result.params, function(err, data) {
+                if (err) {
+                    console.log(err);
+                    fail_message(event, context, "Oops... something went wrong");
+                } else {
+                    print_events(event, context, data, limit);
+                }
+            });
+        }
     } else if (event.task != "") {
-        dynamodb.query({
+        var parse_result = parse_params(event, context, {
+            TableName: "TaskManager_Events",
+            ExpressionAttributeNames: {
+                "#task_id": "TaskId"
+            },
+            ExpressionAttributeValues: {
+                ":task_id": {N: event.task}
+            },
+            KeyConditionExpression: "#task_id = :task_id",
+            ScanIndexForward: true,
+            IndexName: "TaskId-Date-Index"
         });
+
+        if (!parse_result.hasErrors) {
+            dynamodb.query(parse_result.params, function(err, data) {
+                if (err) {
+                    console.log(err);
+                    fail_message(event, context, "Oops... something went wrong");
+                } else {
+                    print_events(event, context, data, limit);
+                }
+            });
+        }
+    } else {
+        fail_message(event, context, "Please specify a user or task to filter!");
     }
 }
 
@@ -1410,6 +1508,9 @@ handle_nonloggedin = function(event, context) {
                 login(event, context);
             }
             break;
+        case "events":
+            events(event, context);
+            break;
         case "who":
             who(event, context);
             break;
@@ -1460,9 +1561,6 @@ exports.handler = function(event, context) {
                         break;
                     case "history":
                         history(event, context, user_id);
-                        break;
-                    case "events":
-                        events(event, context, user_id);
                         break;
                     case "finger":
                         finger(event, context, user_id);
