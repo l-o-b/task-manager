@@ -370,7 +370,7 @@ update = function(event, context, user_id) {
     }
 }
 
-history = function(event, context, user_id) {
+history = function(event, context) {
     if (event.task_id != undefined && event.task_id != "") {
         dynamodb.getItem({
             TableName: "TaskManager_Tasks",
@@ -416,14 +416,13 @@ history = function(event, context, user_id) {
                             if (data.Items.length > 0) {
                                 for (var item_index = 0; item_index < data.Items.length; item_index++) {
                                     var item = data.Items[item_index];
+                                    result.events.push({
+                                        when: format_date(item["Date"].N),
+                                        who: item.User.S,
+                                        what: item.Action.S
+                                    });
                                     if (item.Action.S == "grab" || item.Action.S == "release" ||
                                             item.Action.S == "done") {
-                                        result.events.push({
-                                            when: format_date(item["Date"].N),
-                                            who: item.User.S,
-                                            what: item.Action.S
-                                        });
-
                                         var action_time = parseInt(item["Date"].N);
                                         if (item.Action.S == "grab") {
                                             result.time_queued += (action_time - in_queue_since);
@@ -1604,6 +1603,9 @@ handle_nonloggedin = function(event, context) {
         case "list-available":
             list_available(event, context);
             break;
+        case "history":
+            history(event, context);
+            break;
         default:
             fail_message(event, context, "Action not found, maybe you're not logged in?");
             break;
@@ -1634,9 +1636,6 @@ exports.handler = function(event, context) {
                 switch (event.action) {
                     case "add":
                         add(event, context, user_id);
-                        break;
-                    case "history":
-                        history(event, context, user_id);
                         break;
                     case "finger":
                         finger(event, context, user_id);
