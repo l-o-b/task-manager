@@ -1182,6 +1182,83 @@ release = function(event, context, user_id) {
     });
 }
 
+purge = function(event, context, user_id) {
+    if (event.task_id != undefined && event.task_id != "") {
+        dynamodb.getItem({
+            TableName: "TaskManager_Users",
+            Key: {
+                Email: {S: user_id}
+            }
+        }, function(err, data) {
+            if (err) {
+                console.log(err);
+                fail_message(event, context, "Oops... something went wrong! Please try again later");
+            } else {
+                if (data.Item && data.Item.SuperUser && data.Item.SuperUser.BOOL) {
+                    dynamodb.deleteItem({
+                        TableName: "TaskManager_Tasks",
+                        Key: {
+                            TaskId: {N: event.task_id}
+                        }
+                    }, function(err, data) {
+                        if (err) {
+                            console.log(err);
+                            fail_message(event, context, "Oops... something went wrong! Please try again later");
+                        } else {
+                            dynamodb.query({
+                                TableName: "TaskManager_Events",
+                                ExpressionAttributeNames: {
+                                    "#task_id": "TaskId"
+                                },
+                                ExpressionAttributeValues: {
+                                    ":task_id": {N: event.task_id}
+                                },
+                                KeyConditionExpression: "#task_id = :task_id",
+                                ScanIndexForward: true,
+                                IndexName: "TaskId-Date-Index"
+                            }, function(err, data) {
+                                if (err) {
+                                    console.log(err);
+                                    fail_message(event, context, "Oops... something went wrong! Please try again later");
+                                } else {
+                                    var running_queue = 0;
+                                    if (data.Items.length > 0) {
+                                        for (var item_index = 0; item_index < data.Items.length; item_index++) {
+                                            running_queue++;
+                                            dynamodb.deleteItem({
+                                                TableName: "TaskManager_Events",
+                                                Key: {
+                                                    User: data.Items[item_index].User,
+                                                    Date: data.Items[item_index].Date
+                                                }
+                                            }, function(err, data) {
+                                                running_queue--;
+                                                if (err) {
+                                                    console.log(err);
+                                                }
+                                                if (running_queue == 0) {
+                                                    context.succeed();
+                                                }
+                                            });
+                                        }
+                                    }
+                                    if (running_queue == 0) {
+                                        context.succeed();
+                                    }
+                                }
+                            });
+                        }
+                    });
+                } else {
+                    fail_message(event, context, "You do not have the privileges to do this!");
+                }
+            }
+        });
+    } else {
+        fail_message(event, context, "You must specify a task ID!");
+    }
+}
+
 task_delete = function(event, context, user_id) {
     if (event.task_id != undefined && event.task_id != "") {
         dynamodb.getItem({
@@ -1657,6 +1734,9 @@ exports.handler = function(event, context) {
                         break;
                     case "grab":
                         grab(event, context, user_id);
+                        break;
+                    case "purge":
+                        purge(event, context, user_id);
                         break;
                     default:
                         fail_message(event, context, "Action not found, maybe you're trying to login again?");
