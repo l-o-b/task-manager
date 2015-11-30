@@ -1,0 +1,373 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta content="IE=edge,chrome=1" http-equiv="X-UA-Compatible">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <title>API Documentation</title>
+
+    <link href="stylesheets/screen.css" rel="stylesheet" type="text/css" media="screen" />
+    <link href="stylesheets/print.css" rel="stylesheet" type="text/css" media="print" />
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+      <script src="javascripts/all_nosearch.js" type="text/javascript"></script>
+
+  </head>
+
+  <body class="index">
+    <a href="#" id="nav-button">
+      <span>
+        NAV
+        <img src="images/navbar.png" />
+      </span>
+    </a>
+    <div class="tocify-wrapper">
+      <img src="images/logo.png" />
+      <div id="toc">
+      </div>
+    </div>
+    <div class="page-wrapper">
+      <div class="dark-box"></div>
+      <div class="content">
+        <h1 id="tasks">tasks</h1>
+
+<h2 id="post-tasks">POST /tasks</h2>
+<pre class="highlight json"><code><span class="p">{</span><span class="w"> 
+  </span><span class="err">title</span><span class="w"> </span><span class="err">:</span><span class="w"> </span><span class="err">'email</span><span class="w"> </span><span class="err">me</span><span class="w"> </span><span class="err">some</span><span class="w"> </span><span class="err">positive</span><span class="w"> </span><span class="err">thoughts.</span><span class="w"> </span><span class="err">I</span><span class="w"> </span><span class="err">am</span><span class="w"> </span><span class="err">feeling</span><span class="w"> </span><span class="err">down!'</span><span class="w">
+      </span><span class="err">title</span><span class="w"> </span><span class="err">or</span><span class="w"> </span><span class="err">short</span><span class="w"> </span><span class="err">description</span><span class="w"> </span><span class="err">of</span><span class="w"> </span><span class="err">the</span><span class="w"> </span><span class="err">task</span><span class="w">
+      </span><span class="err">displayed</span><span class="w"> </span><span class="err">prominently</span><span class="w"> </span><span class="err">in</span><span class="w"> </span><span class="err">task</span><span class="w"> </span><span class="err">listings</span><span class="w"> </span><span class="err">and</span><span class="w"> </span><span class="err">such</span><span class="w">
+      </span><span class="err">some</span><span class="w"> </span><span class="err">listing</span><span class="w"> </span><span class="err">display</span><span class="w"> </span><span class="err">shorter</span><span class="w"> </span><span class="err">portions</span><span class="w"> </span><span class="err">if</span><span class="w"> </span><span class="err">you</span><span class="w"> </span><span class="err">put</span><span class="w"> </span><span class="err">a</span><span class="w"> </span><span class="err">long</span><span class="w"> </span><span class="err">title</span><span class="w">
+      </span><span class="err">expect</span><span class="w"> </span><span class="err">to</span><span class="w"> </span><span class="err">be</span><span class="w"> </span><span class="err">shown</span><span class="w"> </span><span class="err">in</span><span class="w"> </span><span class="err">many</span><span class="w"> </span><span class="err">places</span><span class="w"> </span><span class="err">with</span><span class="w"> </span><span class="err">ellipsis</span><span class="w">
+
+      </span><span class="err">required</span><span class="w"> 
+
+  </span><span class="err">description</span><span class="w">  </span><span class="err">:</span><span class="w">  </span><span class="err">''</span><span class="w">
+      </span><span class="err">longer/full</span><span class="w"> </span><span class="err">description</span><span class="w"> </span><span class="err">of</span><span class="w"> </span><span class="err">the</span><span class="w"> </span><span class="err">task</span><span class="w">
+      </span><span class="err">typically</span><span class="w"> </span><span class="err">displayed</span><span class="w"> </span><span class="err">when</span><span class="w"> </span><span class="err">showing</span><span class="w"> </span><span class="err">a</span><span class="w"> </span><span class="err">single</span><span class="w"> </span><span class="err">task</span><span class="w">
+
+      </span><span class="err">optional</span><span class="w"> 
+      </span><span class="err">empty</span><span class="w"> 
+
+  </span><span class="err">deadline</span><span class="w">  </span><span class="err">:</span><span class="w"> 
+      </span><span class="err">deadline</span><span class="w"> </span><span class="err">for</span><span class="w"> </span><span class="err">the</span><span class="w"> </span><span class="err">task</span><span class="w">
+      </span><span class="err">datetime</span><span class="w"> </span><span class="err">in</span><span class="w"> </span><span class="err">whatever</span><span class="w"> </span><span class="err">is</span><span class="w"> </span><span class="err">the</span><span class="w"> </span><span class="err">standard</span><span class="w"> </span><span class="err">form</span><span class="w"> </span><span class="err">an</span><span class="w"> </span><span class="err">API</span><span class="w">
+
+      </span><span class="err">optional</span><span class="w">  
+      </span><span class="err">default</span><span class="w"> </span><span class="err">to</span><span class="w"> </span><span class="err">24</span><span class="w"> </span><span class="err">hrs</span><span class="w"> </span><span class="err">from</span><span class="w"> </span><span class="err">submission</span><span class="w"> </span><span class="err">time</span><span class="w">
+      </span><span class="err">negative</span><span class="w"> </span><span class="err">or</span><span class="w"> </span><span class="err">0</span><span class="w"> </span><span class="err">means</span><span class="w"> </span><span class="err">asap</span><span class="w"> </span><span class="err">and</span><span class="w"> </span><span class="err">changes</span><span class="w"> </span><span class="err">into</span><span class="w"> </span><span class="err">now</span><span class="w"> </span><span class="err">(plus</span><span class="w"> </span><span class="err">+</span><span class="w"> </span><span class="err">estimate)</span><span class="w">
+
+
+  </span><span class="err">estimate</span><span class="w"> </span><span class="err">:</span><span class="w"> </span><span class="err">300</span><span class="w">  </span><span class="err">//assuming</span><span class="w"> </span><span class="err">that</span><span class="w"> </span><span class="err">the</span><span class="w"> </span><span class="err">units</span><span class="w"> </span><span class="err">is</span><span class="w"> </span><span class="nt">"seconds"</span><span class="w">
+      </span><span class="err">submitter</span><span class="w"> </span><span class="err">expectation</span><span class="w"> </span><span class="err">of</span><span class="w"> </span><span class="err">time</span><span class="w"> </span><span class="err">that</span><span class="w"> </span><span class="err">it</span><span class="w"> </span><span class="err">would</span><span class="w"> </span><span class="err">take</span><span class="w"> </span><span class="err">to</span><span class="w"> </span><span class="err">finish</span><span class="w"> </span><span class="err">the</span><span class="w"> </span><span class="err">task</span><span class="w">
+      </span><span class="err">in</span><span class="w"> </span><span class="err">whatever</span><span class="w"> </span><span class="err">is</span><span class="w"> </span><span class="err">the</span><span class="w"> </span><span class="err">standard</span><span class="w"> </span><span class="err">unit</span><span class="w"> </span><span class="err">for</span><span class="w"> </span><span class="err">time</span><span class="w"> </span><span class="err">apis</span><span class="w">
+
+      </span><span class="err">optional</span><span class="w">
+      </span><span class="err">default</span><span class="w"> </span><span class="err">=&gt;</span><span class="w"> </span><span class="err">1</span><span class="w"> </span><span class="err">hr</span><span class="w">
+
+
+  </span><span class="err">owner</span><span class="w"> </span><span class="p">:</span><span class="w">  </span><span class="s2">"odysseas@ezhome.com"</span><span class="w">
+      </span><span class="err">who</span><span class="w"> </span><span class="err">this</span><span class="w"> </span><span class="err">task</span><span class="w"> </span><span class="err">is</span><span class="w"> </span><span class="err">for</span><span class="w">
+      </span><span class="err">using</span><span class="w"> </span><span class="err">email</span><span class="w"> </span><span class="err">because</span><span class="w"> </span><span class="err">it</span><span class="w"> </span><span class="err">makes</span><span class="w"> </span><span class="err">the</span><span class="w"> </span><span class="err">API</span><span class="w"> </span><span class="err">more</span><span class="w"> </span><span class="err">easy</span><span class="w"> </span><span class="err">to</span><span class="w"> </span><span class="err">use..everyone</span><span class="w"> </span><span class="err">has</span><span class="w"> </span><span class="err">the</span><span class="w"> </span><span class="err">email</span><span class="w">
+      </span><span class="err">quite</span><span class="w"> </span><span class="err">possibly</span><span class="w"> </span><span class="err">internally</span><span class="w"> </span><span class="err">the</span><span class="w"> </span><span class="err">app</span><span class="w"> </span><span class="err">should</span><span class="w"> </span><span class="err">always</span><span class="w"> </span><span class="err">be</span><span class="w"> </span><span class="err">recording</span><span class="w"> </span><span class="err">user-id</span><span class="w">  </span><span class="err">but</span><span class="w"> </span><span class="err">allow</span><span class="w">
+      </span><span class="err">incoming</span><span class="w"> </span><span class="err">user</span><span class="w"> </span><span class="err">references</span><span class="w"> </span><span class="err">to</span><span class="w"> </span><span class="err">be</span><span class="w"> </span><span class="err">email</span><span class="w"> </span><span class="err">based</span><span class="w"> </span><span class="err">and</span><span class="w"> </span><span class="err">outgoing</span><span class="w"> </span><span class="err">user</span><span class="w"> </span><span class="err">references</span><span class="w"> </span><span class="err">are</span><span class="w"> </span><span class="err">also</span><span class="w"> 
+      </span><span class="err">converted</span><span class="w"> </span><span class="err">into</span><span class="w"> </span><span class="err">the</span><span class="w"> </span><span class="s2">"user's current email"</span><span class="w"> </span><span class="err">for</span><span class="w"> </span><span class="err">api</span><span class="w"> </span><span class="err">friendlyness</span><span class="w">
+
+      </span><span class="err">optional</span><span class="w">
+      </span><span class="err">default</span><span class="w"> </span><span class="err">:</span><span class="w"> </span><span class="err">the</span><span class="w"> </span><span class="err">currently</span><span class="w"> </span><span class="err">authenticated</span><span class="w"> </span><span class="err">user</span><span class="w">
+
+  </span><span class="err">tags</span><span class="w"> </span><span class="err">:</span><span class="w"> </span><span class="p">[</span><span class="w"> </span><span class="err">tag</span><span class="mi">1</span><span class="w"> </span><span class="err">tag</span><span class="mi">2</span><span class="w"> </span><span class="p">]</span><span class="w"> </span><span class="err">#</span><span class="w"> </span><span class="err">list</span><span class="w"> </span><span class="err">of</span><span class="w"> </span><span class="err">tags</span><span class="w">
+      </span><span class="err">optional</span><span class="w"> 
+      </span><span class="err">tags</span><span class="w"> </span><span class="err">are</span><span class="w"> </span><span class="err">used</span><span class="w"> </span><span class="err">as</span><span class="w"> </span><span class="err">the</span><span class="w"> </span><span class="err">catch-all</span><span class="w"> </span><span class="err">instead</span><span class="w"> </span><span class="err">of</span><span class="w"> </span><span class="err">structured</span><span class="w"> </span><span class="err">filtering</span><span class="w"> </span><span class="err">(list-ing)</span><span class="w"> </span><span class="err">for</span><span class="w"> </span><span class="err">now</span><span class="w">
+
+
+</span><span class="p">}</span><span class="w">
+</span></code></pre>
+
+<p>In response the POST call returns the newly created object
+which includes filled in defaulted empty attributes, (equiv to GET /tasks/5768)</p>
+
+<p>The above should be support the use case of the add command.</p>
+
+<h2 id="get-tasks-5768">GET /tasks/5768</h2>
+<pre class="highlight json"><code><span class="p">{</span><span class="w">   
+  </span><span class="err">title</span><span class="w"> </span><span class="err">:</span><span class="w"> </span><span class="err">'email</span><span class="w"> </span><span class="err">me</span><span class="w"> </span><span class="err">some</span><span class="w"> </span><span class="err">positive</span><span class="w"> </span><span class="err">thoughts.</span><span class="w"> </span><span class="err">I</span><span class="w"> </span><span class="err">am</span><span class="w"> </span><span class="err">feeling</span><span class="w"> </span><span class="err">down!'</span><span class="w">
+  </span><span class="err">description</span><span class="w">  </span><span class="err">:</span><span class="w">  
+  </span><span class="err">deadline</span><span class="w">  </span><span class="err">:</span><span class="w"> </span><span class="err">'2015-11-20T17:31:33Z'</span><span class="w">
+  </span><span class="err">estimate</span><span class="w"> </span><span class="err">:</span><span class="w"> </span><span class="err">300</span><span class="w">
+  </span><span class="err">owner</span><span class="w"> </span><span class="err">:</span><span class="w">  </span><span class="err">'odysseas@ezhome.com'</span><span class="w">
+  </span><span class="err">tags</span><span class="w"> </span><span class="err">:</span><span class="w"> </span><span class="err">[</span><span class="w"> </span><span class="err">tag1</span><span class="w"> </span><span class="err">tag2</span><span class="w"> </span><span class="err">]</span><span class="w">
+
+  </span><span class="err">/*</span><span class="w"> </span><span class="err">system</span><span class="w"> </span><span class="err">attrs</span><span class="w"> </span><span class="err">*/</span><span class="w">
+  </span><span class="err">_id</span><span class="w"> </span><span class="err">:</span><span class="w"> </span><span class="err">5768</span><span class="w">
+  </span><span class="err">_created_by</span><span class="w"> </span><span class="err">:</span><span class="w"> </span><span class="err">'odysseas@ezhome.com'</span><span class="w">    
+  </span><span class="err">_created_on</span><span class="w"> </span><span class="err">:</span><span class="w"> </span><span class="err">'2015-11-20T17:26:33Z'</span><span class="w"> 
+  </span><span class="err">_last_modified_on</span><span class="w"> </span><span class="err">:</span><span class="w"> </span><span class="err">'2015-11-20T17:26:33Z'</span><span class="w">
+  </span><span class="err">_state</span><span class="w"> </span><span class="err">:</span><span class="w"> </span><span class="err">'queued'</span><span class="w">
+  </span><span class="err">_worked_by</span><span class="w"> </span><span class="err">:</span><span class="w"> </span><span class="err">'mary@ezhome.com'</span><span class="w">            </span><span class="err">#</span><span class="w"> </span><span class="err">if</span><span class="w"> </span><span class="err">the</span><span class="w"> </span><span class="err">task</span><span class="w"> </span><span class="err">is</span><span class="w"> </span><span class="err">under</span><span class="w"> </span><span class="err">the</span><span class="w"> </span><span class="err">control</span><span class="w"> </span><span class="err">of</span><span class="w"> </span><span class="err">a</span><span class="w"> </span><span class="err">worker</span><span class="w"> </span><span class="err">which</span><span class="w"> </span><span class="err">worker</span><span class="w"> </span><span class="err">that</span><span class="w"> </span><span class="err">is</span><span class="w">
+  </span><span class="err">_worked_on</span><span class="w"> </span><span class="err">:</span><span class="w"> </span><span class="err">'2015-11-20T17:26:33Z'</span><span class="w">       </span><span class="err">#</span><span class="w"> </span><span class="err">if</span><span class="w"> </span><span class="err">the</span><span class="w"> </span><span class="err">task</span><span class="w"> </span><span class="err">is</span><span class="w"> </span><span class="err">under</span><span class="w"> </span><span class="err">the</span><span class="w"> </span><span class="err">control</span><span class="w"> </span><span class="err">of</span><span class="w"> </span><span class="err">a</span><span class="w"> </span><span class="err">worker</span><span class="w"> </span><span class="err">..</span><span class="w"> </span><span class="err">when</span><span class="w"> </span><span class="err">it</span><span class="w"> </span><span class="err">was</span><span class="w"> </span><span class="err">last</span><span class="w"> </span><span class="err">grabbed</span><span class="w"> </span><span class="err">*/</span><span class="w">
+  </span><span class="err">_work_status</span><span class="w"> </span><span class="err">:</span><span class="w"> </span><span class="err">suspended</span><span class="w"> </span><span class="err">or</span><span class="w"> </span><span class="err">active</span><span class="w">        </span><span class="err">#</span><span class="w"> </span><span class="err">if</span><span class="w"> </span><span class="err">the</span><span class="w"> </span><span class="err">task</span><span class="w"> </span><span class="err">is</span><span class="w"> </span><span class="err">under</span><span class="w"> </span><span class="err">the</span><span class="w"> </span><span class="err">control</span><span class="w"> </span><span class="err">of</span><span class="w"> </span><span class="err">a</span><span class="w"> </span><span class="err">worker</span><span class="w"> 
+  </span><span class="err">_completion_status</span><span class="w"> </span><span class="err">:</span><span class="w"> </span><span class="err">success</span><span class="w"> </span><span class="err">or</span><span class="w"> </span><span class="err">failure</span><span class="w">   </span><span class="err">#</span><span class="w"> </span><span class="err">if</span><span class="w"> </span><span class="err">the</span><span class="w"> </span><span class="err">test</span><span class="w"> </span><span class="err">is</span><span class="w"> </span><span class="err">completed</span><span class="w"> 
+  </span><span class="err">_completed_on</span><span class="w"> </span><span class="err">:</span><span class="w"> </span><span class="err">'2015-11-20T17:26:33Z'</span><span class="w">    </span><span class="err">#</span><span class="w"> </span><span class="err">if</span><span class="w"> </span><span class="err">the</span><span class="w"> </span><span class="err">test</span><span class="w"> </span><span class="err">is</span><span class="w"> </span><span class="err">completed</span><span class="w"> 
+
+</span><span class="p">}</span><span class="w">
+</span></code></pre>
+
+<p>The above should be able to support the use case of show command</p>
+
+<p>Updating an existing task 
+with PUT or whatever is the right convention for the update of an existing object</p>
+
+<h2 id="put-tasks-5768">PUT /tasks/5768</h2>
+<pre class="highlight json"><code><span class="p">{</span><span class="w">   
+  </span><span class="err">_id</span><span class="w"> </span><span class="err">:</span><span class="w"> </span><span class="err">5768</span><span class="w">
+  </span><span class="err">title</span><span class="w"> </span><span class="err">:</span><span class="w"> </span><span class="err">'email</span><span class="w"> </span><span class="err">me</span><span class="w"> </span><span class="err">some</span><span class="w"> </span><span class="err">positive</span><span class="w"> </span><span class="err">thoughts.</span><span class="w"> </span><span class="err">I</span><span class="w"> </span><span class="err">am</span><span class="w"> </span><span class="err">feeling</span><span class="w"> </span><span class="err">down!'</span><span class="w">
+  </span><span class="err">description</span><span class="w">  </span><span class="err">:</span><span class="w">  
+  </span><span class="err">deadline</span><span class="w">  </span><span class="err">:</span><span class="w"> </span><span class="err">'2015-11-20T17:31:33Z'</span><span class="w">
+  </span><span class="err">estimate</span><span class="w"> </span><span class="err">:</span><span class="w"> </span><span class="err">300</span><span class="w">
+  </span><span class="err">owner</span><span class="w"> </span><span class="err">:</span><span class="w">  </span><span class="err">'odysseas@ezhome.com'</span><span class="w">
+
+</span><span class="p">}</span><span class="w">
+</span></code></pre>
+
+<p>=&gt; returns the updated object same as GET /tasks/5768</p>
+
+<p>Given the minimal need for this I am trying to keep the implementation as simple as possible.</p>
+
+<p>For simplicity, the complete object is being replaced, 
+ie, if a parameter is missing we do not keep existing values, we simply follow the same defaulting 
+logic that we follow on <code class="prettyprint">add</code> to generate defaults for the missing parameters.
+Also, note that for now we do not allow tag update (more complex will need tag add and tag remove functionality)</p>
+
+<p>The only &ldquo;business logic&rdquo; is that we only allow a task to be updated if it is in <code class="prettyprint">queued</code> state.
+Descriptive error messages are generated otherwise, e.g.
+<code class="prettyprint">
+Cannot Update. Task is  (being worked on|completed|deleted)
+Task does not exist.
+</code>
+The above should be able to support the use case of update command</p>
+
+<h2 id="delete-tasks-5768">DELETE /tasks/5768</h2>
+<pre class="highlight json"><code><span class="p">{</span><span class="w">   
+  </span><span class="err">_id</span><span class="w"> </span><span class="err">:</span><span class="w"> </span><span class="err">5768</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre>
+
+<p>It sets the state to &ldquo;deleted&rdquo;  - which is considered a final state
+Only queued tasks are allowed to be deleted</p>
+
+<p>=&gt; returns the deleted object same as GET /tasks/5768
+Descriptive error messages are generated on error
+<code class="prettyprint">
+Cannot Delete. Task is  (being worked on|completed)
+Task does not exist.
+</code></p>
+
+<h2 id="get-tasks-5768-history">GET /tasks/5768/history</h2>
+<pre class="highlight json"><code><span class="p">{</span><span class="w">
+  </span><span class="err">events</span><span class="w"> </span><span class="err">:</span><span class="w"> </span><span class="err">[</span><span class="w">         </span><span class="err">#</span><span class="w"> </span><span class="err">complete</span><span class="w"> </span><span class="err">chronoligical</span><span class="w"> </span><span class="err">history</span><span class="w"> </span><span class="err">of</span><span class="w"> </span><span class="err">events</span><span class="w">
+    </span><span class="err">{</span><span class="w"> </span><span class="err">when</span><span class="w"> </span><span class="err">:</span><span class="w"> </span><span class="err">'2015-11-20T17:31:33Z',</span><span class="w"> </span><span class="err">who</span><span class="w"> </span><span class="err">:</span><span class="w"> </span><span class="err">'joe@ezhome.com',</span><span class="w"> </span><span class="err">what</span><span class="w"> </span><span class="err">:</span><span class="w"> </span><span class="err">'grab'</span><span class="w"> </span><span class="p">}</span><span class="err">,</span><span class="w">
+    </span><span class="p">{</span><span class="w"> </span><span class="err">when</span><span class="w"> </span><span class="err">:</span><span class="w"> </span><span class="err">'2015-11-20T17:31:33Z',</span><span class="w"> </span><span class="err">who</span><span class="w"> </span><span class="err">:</span><span class="w"> </span><span class="err">'joe@ezhome.com',</span><span class="w"> </span><span class="err">what</span><span class="w"> </span><span class="err">:</span><span class="w"> </span><span class="err">'grab'</span><span class="w"> </span><span class="p">}</span><span class="err">,</span><span class="w">
+    </span><span class="p">{</span><span class="w"> </span><span class="err">when</span><span class="w"> </span><span class="err">:</span><span class="w"> </span><span class="err">'2015-11-20T17:31:33Z',</span><span class="w"> </span><span class="err">who</span><span class="w"> </span><span class="err">:</span><span class="w"> </span><span class="err">'joe@ezhome.com',</span><span class="w"> </span><span class="err">what</span><span class="w"> </span><span class="err">:</span><span class="w"> </span><span class="err">'grab'</span><span class="w"> </span><span class="p">}</span><span class="err">,</span><span class="w">
+    </span><span class="p">{</span><span class="w"> </span><span class="err">when</span><span class="w"> </span><span class="err">:</span><span class="w"> </span><span class="err">'2015-11-20T17:31:33Z',</span><span class="w"> </span><span class="err">who</span><span class="w"> </span><span class="err">:</span><span class="w"> </span><span class="err">'joe@ezhome.com',</span><span class="w"> </span><span class="err">what</span><span class="w"> </span><span class="err">:</span><span class="w"> </span><span class="err">'grab'</span><span class="w"> </span><span class="p">}</span><span class="err">,</span><span class="w">
+    </span><span class="p">{</span><span class="w"> </span><span class="err">when</span><span class="w"> </span><span class="err">:</span><span class="w"> </span><span class="err">'2015-11-20T17:31:33Z',</span><span class="w"> </span><span class="err">who</span><span class="w"> </span><span class="err">:</span><span class="w"> </span><span class="err">'joe@ezhome.com',</span><span class="w"> </span><span class="err">what</span><span class="w"> </span><span class="err">:</span><span class="w"> </span><span class="err">'grab'</span><span class="w"> </span><span class="p">}</span><span class="err">,</span><span class="w">
+  </span><span class="err">]</span><span class="w">
+
+  </span><span class="err">#</span><span class="w"> </span><span class="err">some</span><span class="w"> </span><span class="err">aggregates</span><span class="w"> </span><span class="err">on</span><span class="w"> </span><span class="err">top</span><span class="w"> </span><span class="err">of</span><span class="w"> </span><span class="err">the</span><span class="w"> </span><span class="err">history</span><span class="w"> </span><span class="err">of</span><span class="w"> </span><span class="err">the</span><span class="w"> </span><span class="err">events</span><span class="w">
+  </span><span class="err">time_elapsed</span><span class="w">       </span><span class="err">#</span><span class="w"> </span><span class="err">time</span><span class="w"> </span><span class="err">since</span><span class="w"> </span><span class="err">first</span><span class="w"> </span><span class="err">submitted</span><span class="w">
+  </span><span class="err">time_til_deadline</span><span class="w">  </span><span class="err">#</span><span class="w"> 
+  </span><span class="err">time_worked_on</span><span class="w">     </span><span class="err">#</span><span class="w"> </span><span class="err">time</span><span class="w"> </span><span class="err">the</span><span class="w"> </span><span class="err">task</span><span class="w"> </span><span class="err">has</span><span class="w"> </span><span class="err">spent</span><span class="w"> </span><span class="err">being</span><span class="w"> </span><span class="err">the</span><span class="w"> </span><span class="err">active</span><span class="w"> </span><span class="err">task</span><span class="w"> </span><span class="err">of</span><span class="w"> </span><span class="err">the</span><span class="w"> </span><span class="err">current</span><span class="w"> </span><span class="err">worker</span><span class="w"> </span><span class="err">(only</span><span class="w"> </span><span class="err">if</span><span class="w"> </span><span class="err">in-progress)</span><span class="w">
+  </span><span class="err">time_suspended</span><span class="w">     </span><span class="err">#</span><span class="w"> </span><span class="err">time</span><span class="w"> </span><span class="err">the</span><span class="w"> </span><span class="err">task</span><span class="w"> </span><span class="err">has</span><span class="w"> </span><span class="err">spent</span><span class="w"> </span><span class="err">suspended</span><span class="w"> </span><span class="err">by</span><span class="w"> </span><span class="err">the</span><span class="w"> </span><span class="err">current</span><span class="w"> </span><span class="err">worker</span><span class="w"> </span><span class="err">(only</span><span class="w"> </span><span class="err">if</span><span class="w"> </span><span class="err">in-progress)</span><span class="w">
+  </span><span class="err">time_queued</span><span class="w">        </span><span class="err">#</span><span class="w"> </span><span class="err">total</span><span class="w"> </span><span class="err">time</span><span class="w"> </span><span class="err">in</span><span class="w"> </span><span class="err">the</span><span class="w"> </span><span class="err">queue</span><span class="w">
+  </span><span class="err">time_rejected</span><span class="w">      </span><span class="err">#</span><span class="w"> </span><span class="err">total</span><span class="w"> </span><span class="err">time</span><span class="w"> </span><span class="err">under</span><span class="w"> </span><span class="err">the</span><span class="w"> </span><span class="err">control</span><span class="w"> </span><span class="err">of</span><span class="w"> </span><span class="err">users</span><span class="w"> </span><span class="err">that</span><span class="w"> </span><span class="err">eventually</span><span class="w"> </span><span class="err">released</span><span class="w"> </span><span class="err">the</span><span class="w"> </span><span class="err">task</span><span class="w"> </span><span class="err">without</span><span class="w"> </span><span class="err">completing</span><span class="w"> </span><span class="err">it</span><span class="w">
+  </span><span class="err">times_rejected</span><span class="w">     </span><span class="err">#</span><span class="w"> </span><span class="err">how</span><span class="w"> </span><span class="err">many</span><span class="w"> </span><span class="err">times</span><span class="w"> </span><span class="err">the</span><span class="w"> </span><span class="err">current</span><span class="w"> </span><span class="err">task</span><span class="w"> </span><span class="err">has</span><span class="w"> </span><span class="err">been</span><span class="w"> </span><span class="err">rejected</span><span class="w"> </span><span class="err">by</span><span class="w"> </span><span class="err">prior</span><span class="w"> </span><span class="err">users</span><span class="w">
+</span><span class="err">}</span><span class="w">
+</span></code></pre>
+
+<p>The above should be able to support the use case of show command</p>
+
+<h2 id="get-workers-xxx-long-true">GET /workers/xxx/long=true</h2>
+<pre class="highlight json"><code><span class="p">{</span><span class="w"> 
+  </span><span class="err">_id</span><span class="w"> </span><span class="err">:</span><span class="w"> </span><span class="err">xxx</span><span class="w">
+  </span><span class="err">userid</span><span class="w"> </span><span class="err">:</span><span class="w"> </span><span class="err">odysseas@ezhome.com</span><span class="w">
+
+  </span><span class="err">current:</span><span class="w"> </span><span class="err">{</span><span class="p">}</span><span class="w">
+  </span><span class="err">suspended:</span><span class="w"> </span><span class="p">[</span><span class="w"> </span><span class="p">]</span><span class="w"> </span><span class="err">#lifo</span><span class="w"> </span><span class="err">first</span><span class="w"> </span><span class="err">in</span><span class="w"> </span><span class="err">list</span><span class="w"> </span><span class="err">is</span><span class="w"> </span><span class="err">last</span><span class="w"> </span><span class="err">suspended</span><span class="w">
+
+  </span><span class="err">events</span><span class="w"> </span><span class="err">:</span><span class="w"> </span><span class="p">[</span><span class="w">         </span><span class="err">#</span><span class="w"> </span><span class="err">complete</span><span class="w"> </span><span class="err">chronoligical</span><span class="w"> </span><span class="err">history</span><span class="w"> </span><span class="err">of</span><span class="w"> </span><span class="err">events</span><span class="w"> </span><span class="err">since</span><span class="w"> </span><span class="err">login</span><span class="w">
+    </span><span class="p">{</span><span class="w"> </span><span class="err">when</span><span class="w"> </span><span class="err">:</span><span class="w"> </span><span class="err">'2015-11-20T17:31:33Z',</span><span class="w"> </span><span class="err">what</span><span class="w"> </span><span class="err">:</span><span class="w"> </span><span class="err">'grab'</span><span class="w"> </span><span class="p">},</span><span class="w">
+    </span><span class="p">{</span><span class="w"> </span><span class="err">when</span><span class="w"> </span><span class="err">:</span><span class="w"> </span><span class="err">'2015-11-20T17:31:33Z',</span><span class="w"> </span><span class="err">what</span><span class="w"> </span><span class="err">:</span><span class="w"> </span><span class="err">'grab'</span><span class="w"> </span><span class="p">},</span><span class="w">
+    </span><span class="p">{</span><span class="w"> </span><span class="err">when</span><span class="w"> </span><span class="err">:</span><span class="w"> </span><span class="err">'2015-11-20T17:31:33Z',</span><span class="w"> </span><span class="err">what</span><span class="w"> </span><span class="err">:</span><span class="w"> </span><span class="err">'grab'</span><span class="w"> </span><span class="p">},</span><span class="w">
+    </span><span class="p">{</span><span class="w"> </span><span class="err">when</span><span class="w"> </span><span class="err">:</span><span class="w"> </span><span class="err">'2015-11-20T17:31:33Z',</span><span class="w"> </span><span class="err">what</span><span class="w"> </span><span class="err">:</span><span class="w"> </span><span class="err">'grab'</span><span class="w"> </span><span class="p">},</span><span class="w">
+    </span><span class="p">{</span><span class="w"> </span><span class="err">when</span><span class="w"> </span><span class="err">:</span><span class="w"> </span><span class="err">'2015-11-20T17:31:33Z',</span><span class="w"> </span><span class="err">what</span><span class="w"> </span><span class="err">:</span><span class="w"> </span><span class="err">'grab'</span><span class="w"> </span><span class="p">},</span><span class="w">
+  </span><span class="p">]</span><span class="w">
+
+</span><span class="err">}</span><span class="w">
+</span></code></pre>
+
+<p>the task  detail inside each is same as GET /tasks/56  except if long=true in which case the returned tasks 
+contain a history section (without events)
+The above should be able to support the use case of finger,jobs,ps command</p>
+
+<h2 id="get-tasks-state-queued-amp-owner-u-amp-n-n-amp-tag-tag1">GET /tasks?state=queued&amp;owner=u&amp;n=N&amp;tag=tag1</h2>
+
+<p>returns a list of up to N tasks 
+    [id1,id2,id3]
+Primary use case is the support of the list command
+If a tag is provided only the tasks that have this tag is returned.</p>
+
+<h2 id="get-tasks-available-n-n">GET /tasks/available?n=N</h2>
+
+<p>returns
+    [id1,id2,id3,&hellip;]</p>
+
+<p>Primary use case is the support of the peek command
+Returns a list of tasks ordered (1st most urgent ) up to N
+if N missing returns just 1
+In the simplest form it can return tasks based on order requested</p>
+
+<h1 id="workers">workers</h1>
+
+<h2 id="post-workers">POST /workers/</h2>
+<pre class="highlight json"><code><span class="p">{</span><span class="w">
+  </span><span class="err">id</span><span class="w"> </span><span class="err">:</span><span class="w"> </span><span class="err">odysseas@ezhome.com</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre>
+
+<p>returns
+<code class="prettyprint">
+{ 
+  _id : 4567  # a worker-id
+  userid : odysseas@ezhome.com
+  loggedin_on : 
+}
+</code>
+This is to support the <code class="prettyprint">login</code> functionality
+has the biz logic of the prototype</p>
+
+<h2 id="get-workers">GET /workers</h2>
+
+<p>returns
+<code class="prettyprint">
+[
+  { 
+    _id : 4567  # a worker-id
+    userid : odysseas@ezhome.com
+    loggedin_on : ..
+  },
+  { 
+    _id : 1234  # a worker-id
+    userid : jim@ezhome.com
+    loggedin_on : ...
+  },
+  {}, {}...
+]
+</code></p>
+
+<p>This is to support the <code class="prettyprint">who</code> functionality</p>
+
+<h2 id="delete-workers-xxx">DELETE /workers/xxx</h2>
+
+<p>This is to support the logout functionality
+has the biz logic of the prototype</p>
+
+<h2 id="post-workers-xxx-tasks">POST /workers/xxx/tasks</h2>
+<pre class="highlight json"><code><span class="p">{</span><span class="w">
+  </span><span class="err">task</span><span class="w"> </span><span class="err">:</span><span class="w"> </span><span class="err">4567</span><span class="w">  </span><span class="err">#</span><span class="w"> </span><span class="err">this</span><span class="w"> </span><span class="err">is</span><span class="w"> </span><span class="err">to</span><span class="w"> </span><span class="err">support</span><span class="w"> </span><span class="err">the</span><span class="w"> </span><span class="err">grab</span><span class="w"> </span><span class="err">xxx</span><span class="w"> </span><span class="err">functionality</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre>
+
+<p>returns
+has the biz logic of the prototype</p>
+
+<h2 id="put-workers-xxx-tasks-xx">PUT /workers/xxx/tasks/xx</h2>
+<pre class="highlight json"><code><span class="p">{</span><span class="w">
+  </span><span class="err">status</span><span class="w"> </span><span class="err">:</span><span class="w"> </span><span class="err">fg</span><span class="w"> </span><span class="err">or</span><span class="w"> </span><span class="err">bg</span><span class="w"> </span><span class="err">or</span><span class="w"> </span><span class="err">release/complete-success/complete-failure</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre>
+
+<p>this is to support fg xx or bg xx
+has the biz logic of the prototype </p>
+
+<h1 id="events">events</h1>
+
+<h2 id="get-events-user-xx-amp-task-tt-amp-type-loginout-amp-type-tasks-amp-n-amp">GET /events?user=xx&amp;task=tt&amp;type=loginout&amp;type=tasks&amp;N=&amp;</h2>
+
+<p>returns in chronological order the last N events for the particular selection</p>
+
+<p>Supports the use case of last lastcomm finger
+    time_since_login   # if still logged in
+    time_since_logout  # if logged out</p>
+
+<h1 id="worker-stats">worker-stats</h1>
+
+<h2 id="get-worker-stats-from-amp-to-amp-worker">GET /worker-stats?from=&amp;to&amp;worker=<pre class="highlight json"><code><span class="p">{</span><span class="w">
+  </span><span class="err">worker1</span><span class="w"> </span><span class="err">:</span><span class="w"> </span><span class="err">{</span><span class="w">
+    </span><span class="err">avg_session_length</span><span class="w"> </span><span class="err">:</span><span class="w">
+    </span><span class="err">num_of_sessions</span><span class="w"> </span><span class="err">:</span><span class="w">
+    </span><span class="err">time_loggedin</span><span class="w"> </span><span class="err">:</span><span class="w">
+    </span><span class="err">time_active</span><span class="w"> </span><span class="err">:</span><span class="w">
+    </span><span class="err">tasks_grabbed</span><span class="w"> </span><span class="err">:</span><span class="w">
+    </span><span class="err">tasks_completed</span><span class="w"> </span><span class="err">:</span><span class="w">
+    </span><span class="err">tasks_completed_successfully</span><span class="w"> </span><span class="err">:</span><span class="w">
+    </span><span class="err">rejection_ratio</span><span class="w"> </span><span class="err">:</span><span class="w">
+    </span><span class="err">failure_ratio</span><span class="w"> </span><span class="err">:</span><span class="w">
+    </span><span class="err">avg_tat</span><span class="w"> </span><span class="err">:</span><span class="w">
+  </span><span class="p">}</span><span class="err">,</span><span class="w">
+  </span><span class="err">worker</span><span class="mi">2</span><span class="w"> </span><span class="err">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+
+  </span><span class="p">}</span><span class="err">,</span><span class="w">
+  </span><span class="err">..</span><span class="w">
+</span><span class="err">}</span><span class="w">
+</span></code></pre>
+
+<p>supports the use case of getting performace stats for a particular user</p>
+
+<h1 id="owner-stats">owner-stats</h1>
+
+<h2 id="get-owner-stats-from-amp-to-amp-owner">GET /owner-stats?from=&amp;to&amp;owner=</h2>
+<pre class="highlight json"><code><span class="p">{</span><span class="w">
+  </span><span class="err">owner1</span><span class="w"> </span><span class="err">:</span><span class="w"> </span><span class="err">{</span><span class="w">
+    </span><span class="err">tasks_requested</span><span class="w"> </span><span class="err">:</span><span class="w">
+    </span><span class="err">tasks_completed</span><span class="w"> </span><span class="err">:</span><span class="w">
+    </span><span class="err">tasks_completed_successfully</span><span class="w"> </span><span class="err">:</span><span class="w">
+    </span><span class="err">time_active</span><span class="w"> </span><span class="err">:</span><span class="w">
+    </span><span class="err">num_of_workers</span><span class="w">
+    </span><span class="err">rejection_ratio</span><span class="w"> </span><span class="err">:</span><span class="w">
+    </span><span class="err">failure_ratio</span><span class="w"> </span><span class="err">:</span><span class="w">
+
+    </span><span class="err">avg_tat</span><span class="w">
+    </span><span class="err">avg_time_worked_on</span><span class="w">  
+    </span><span class="err">avg_time_suspended</span><span class="w">  
+    </span><span class="err">avg_time_queued</span><span class="w">    
+    </span><span class="err">avg_time_rejected</span><span class="w">  
+    </span><span class="err">avg_times_rejected</span><span class="w"> 
+
+  </span><span class="p">}</span><span class="err">,</span><span class="w">
+  </span><span class="err">owner</span><span class="mi">2</span><span class="w"> </span><span class="err">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+
+  </span><span class="p">}</span><span class="err">,</span><span class="w">
+  </span><span class="err">..</span><span class="w">
+</span><span class="err">}</span><span class="w">
+</span></code></pre>
+
+<p>supports the use case of getting costs amount of work given by specific requestor</p>
+
+<h1 id="task-stats">task-stats
+get-task-stats-from-amp-to-amp-task-pattern-xxx&quot;>GET /task-stats?from=&amp;to&amp;task-pattern=xxx</h2>
+<pre class="highlight json"><code><span class="p">{</span><span class="w">
+  </span><span class="err">avg_tat</span><span class="w">
+  </span><span class="err">avg_time_worked_on</span><span class="w">  
+  </span><span class="err">avg_time_suspended</span><span class="w">  
+  </span><span class="err">avg_time_queued</span><span class="w">    
+  </span><span class="err">avg_time_rejected</span><span class="w">  
+  </span><span class="err">avg_times_rejected</span><span class="w"> 
+</span><span class="p">}</span><span class="w">
+</span></code></pre>
+
+<p>supports the use case of getting stats for a given type of work/ or just a batch</p>
+
+      </div>
+      <div class="dark-box">
+      </div>
+    </div>
+  </body>
+</html>
