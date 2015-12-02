@@ -157,10 +157,11 @@ Task does not exist.
 The above should be able to support the use case of update command
 
 ### DELETE /tasks/{task_id}
-It sets the state to "deleted"  - which is considered a final state
+It sets the state to "deleted"  - which is considered a final state<br/>
 Only queued tasks are allowed to be deleted
 
-``` returns the deleted object same as GET /tasks/5768
+``` 
+returns the deleted object same as GET /tasks/5768
 ```
 
 Descriptive error messages are generated on error
